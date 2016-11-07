@@ -1,33 +1,101 @@
-<!DOCTYPE html>
+{% load staticfiles %}
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>real time django chat with Django Channels</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="{% static 'styles.css' %}" type="text/css" rel="stylesheet" />
+   <link href="{% static 'bootstrap.min.css' %}" type="text/css" rel="stylesheet" />
+    <title>Chat App</title>
+
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             var msgArea = $('#msgArea')
             var elementMessage = $('#message')
+            var nameInput= $('#nameInput')
+            var elementName= $('#name')
             var webSocket = new WebSocket('ws://' + window.location.host + '/chat/index');
 
-            webSocket.onmessage = function(message) {
-                var data = JSON.parse(message.data)
-                msgArea.append('<p><strong>'+ data.sender + '</strong>: ' + data.message + '</p>')
+            webSocket.onmessage = function (name) {
+                var data = JSON.parse(name.data)
+                msgArea.append('<p><strong>' + data.message +'</strong>')
             }
-            $('#btnSubmit').click(function(e) {
+            webSocket.onmessage = function (message) {
+                var data = JSON.parse(message.data)
+                msgArea.append(' : ' + data.message + '</p>')
+            }
+            $('#btnSubmit').click(function (e) {
+                webSocket.send(elementName.val())
                 webSocket.send(elementMessage.val())
             })
         })
     </script>
 </head>
 <body>
-
+<h1>Welcome</h1>
 <div id="msgArea"></div>
 
 <div>
-    <textarea name="message" id="message" cols="30" rows="10"></textarea>
+  <p> please enter message: </p> <textarea name="message" id="message" cols="30" rows="10"></textarea>
+</div>
+<div>
+  <p>please enter nickname: </p><input name="name" id="name" cols="30" rows="10" />
 </div>
 
-<button id="btnSubmit">Submit</button>
+<button id="btnSubmit">Send</button>
+
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="portlet portlet-default">
+                <div id="chat" class="panel-collapse collapse in">
+                    <div class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 300px;">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="text-center text-muted small">January 1, 2014 at 12:23 PM</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle" src="http://lorempixel.com/30/30/people/1/"
+                                             alt="">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Jane Smith
+                                            <span class="small pull-right">12:23 PM</span>
+                                        </h4>
+                                        <p>Hi, I wanted to make sure you got the latest product report. Did Roddy get it
+                                            to you?</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="portlet-footer">
+                        <form role="form">
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="Enter message..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-default pull-right">Send</button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-md-4 -->
+    </div>
+</div>
+
+
 </body>
 </html>
