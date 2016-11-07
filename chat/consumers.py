@@ -20,7 +20,13 @@ def ws_connect(message):
 
 def ws_message(message):
     Group('chat').send({'text': json.dumps({'message': message.content['text'],
+
                                             'sender': message.reply_channel.name})})
+
+
+def ws_name(name):
+    Group('chat').send({'text': json.dumps({'name': name.content['text'],
+                                            'sender': name.reply_channel.name})})
 
 
 def ws_disconnect(message):

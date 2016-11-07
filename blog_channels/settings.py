@@ -50,6 +50,11 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    # other context processors....
+    'django.core.context_processors.static',
+)
+
 WSGI_APPLICATION = 'blog_channels.wsgi.application'
 
 
@@ -87,7 +92,28 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
+
+
+PROJECT_DIR  = os.path.dirname(__file__)
+
+MEDIA_ROOT = os.path.join(PROJECT_DIR,'media')
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(PROJECT_DIR,'static')
 STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_DIR, 'staticfiles'),
+)
+
+
 
 
 CHANNEL_LAYERS = {
@@ -101,3 +127,5 @@ CHANNEL_LAYERS = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+STATIC_URL = '/static/'
