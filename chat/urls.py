@@ -8,7 +8,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
-    url(r'^index$', home),
+    url(r'^', home),
     url(r'^email$', MailMeView.as_view(), name='mailme')
 ]
 urlpatterns += staticfiles_urlpatterns()

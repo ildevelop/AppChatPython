@@ -11,14 +11,14 @@ python -m pip install channels
 
 or 
 
-pip install channels
+`pip install channels`
 
 
 to run the server you must enter 
 
-python manage.py runserver
+`python manage.py runserver`
 
 after the run 
 
-the URL : http://localhost:8000/chat/index should direct you to the chat page
+the URL : http://localhost:8000 should direct you to the chat page
 
