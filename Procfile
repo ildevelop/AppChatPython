@@ -1,0 +1,1 @@
+web: sh -c "cd AppChatPython && gunicorn AppChatPython.wsgi"
