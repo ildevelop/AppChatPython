@@ -1,1 +1,1 @@
-web: sh -c "cd AppChatPython && gunicorn AppChatPython.wsgi"
+web: sh -c "cd blog_channels && gunicorn blog_channels.wsgi"
